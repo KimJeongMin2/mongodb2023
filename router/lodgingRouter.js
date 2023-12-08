@@ -108,8 +108,6 @@ router.get("/:id", async (req, res) => {
 
     const reviews = await Review.find({ lodgingId: lodging._id });
 
-    // const re = await Reservation.find({ lodgingId: lodging._id });
-    // console.log("reee", re);
     const start = new Date(year, month - 1, 1);
     start.setHours(0, 0, 0, 0);
     const end = new Date(year, month, 0);
@@ -124,8 +122,6 @@ router.get("/:id", async (req, res) => {
         { checkOut: { $gte: start, $lte: end } },
       ],
     });
-
-    // console.log("checkIn",lodgingId);
 
     console.log("rrr", reservations);
 
@@ -144,14 +140,15 @@ router.get("/:id", async (req, res) => {
     );
 
     for (let i = 0; i < calendar.length; i++) {
-      const currentDate = new Date(year, month - 1, i + 1);
+      const currentDate = new Date(year, month - 1, i + 2);
+      console.log("current", currentDate);
       reservations.forEach((reservation) => {
         if (
           currentDate >= reservation.checkIn &&
           currentDate < reservation.checkOut
         ) {
           if (lodging.type === "개인실") {
-            calendar[i] = lodging.rooms - reservation.guests;
+            calendar[i] -= reservation.guests;
           } else {
             calendar[i] = "O";
           }
@@ -159,57 +156,24 @@ router.get("/:id", async (req, res) => {
       });
     }
 
-    let calendarString = "";
-
     let firstDayOfWeek = start.getDay();
     let lastDayOfWeek = end.getDay();
-    
-    if (firstDayOfWeek === 0) {
-      firstDayOfWeek = 7;
-    }
-    
-    if (lastDayOfWeek === 0) {
-      lastDayOfWeek = 7;
-    }
-    
-    let totalWeeks = Math.ceil((calendar.length + firstDayOfWeek - 1) / 7);
-    
-    for (let i = 1; i <= 7 * totalWeeks; i++) {
-      if (i < firstDayOfWeek) {
-        calendarString += "  ";
-      }
-      else if (i > calendar.length + firstDayOfWeek - 1) {
-        if (i <= (totalWeeks - 1) * 7 + lastDayOfWeek) {
-          calendarString += calendar[i - firstDayOfWeek] + " ";
-        } else {
-          calendarString += "  ";
-        }
-      }
-      else {
-        calendarString += calendar[i - firstDayOfWeek] + " ";
-      }
-    
-      if (i % 7 === 0) {
-        calendarString += "\n";
-      }
-    }
-    
-    //   let calendarString = "";
-    //   let firstDayOfWeek = start.getDay();
-    //   if (firstDayOfWeek === 0) {
-    //     firstDayOfWeek = 7;
-    //   }
 
-    //   for (let i = 1; i < calendar.length + firstDayOfWeek; i++) {
-    //     if (i < firstDayOfWeek) {
-    //         calendarString += "  ";
-    //     } else {
-    //         calendarString += calendar[i - firstDayOfWeek] + " ";
-    //     }
-    //     if (i % 7 === 0) {
-    //         calendarString += "\n";
-    //     }
-    // }
+    let totalWeeks = Math.ceil((calendar.length + firstDayOfWeek) / 7);
+   
+    let calendarString = "";
+   
+for (let i = 0; i < 7 * totalWeeks; i++) {
+  if (i < firstDayOfWeek || i >= firstDayOfWeek + calendar.length) {
+    calendarString += "  ";
+  } else {
+    calendarString += calendar[i - firstDayOfWeek] + " ";
+  }
+    
+  if (i % 7 === 6) {
+    calendarString += "\n";
+  }
+}
 
     const result = {
       lodging,
@@ -217,6 +181,9 @@ router.get("/:id", async (req, res) => {
       calendar: calendarString,
     };
     console.log(lodging + "\n");
+
+    console.log(reviews.map(review => `Review: ${review.review}, Rating: ${review.rating}`));
+
     console.log("Calendar:\n" + calendarString);
 
     res.send(result);
