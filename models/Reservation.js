@@ -5,9 +5,9 @@ const reservationSchema = new mongoose.Schema({
   checkOut: Date,
   guests: Number,
   totalFee: Number,
-  lodgingId: {type: mongoose.Schema.Types.ObjectId, ref: 'Lodging'},
-  memberId: String,
-  reviewId: {type: mongoose.Schema.Types.ObjectId, ref: 'Review'}
+  lodging: { type: mongoose.Schema.Types.ObjectId, ref: 'Lodging' },
+  memberId: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' },
+  reviewId: { type: mongoose.Schema.Types.ObjectId, ref: 'Review' }
 });
 
 module.exports = mongoose.model('Reservation', reservationSchema);

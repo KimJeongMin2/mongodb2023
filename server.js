@@ -5,6 +5,7 @@ const testController = require("./router/testController");
 const lodgingRouter = require("./router/lodgingRouter");
 const reservationRouter = require("./router/reservationRouter");
 const reviewRouter = require("./router/reviewRouter");
+const guestRouterRouter = require("./router/guestRouter");
 const {generateLodging} = require("./faker")
 const hostname = "127.0.0.1";
 const port = 3000;
@@ -17,7 +18,9 @@ const server = async() => {
             useUnifiedTopology: true
         });
         app.use(express.json());
-        app.use("/test", testController);
+        // app.use("/test", testController);
+
+        app.use("/guest", guestRouterRouter);
         app.use("/lodging", lodgingRouter);
         app.use("/reservation", reservationRouter);
         app.use("/review", reviewRouter);
