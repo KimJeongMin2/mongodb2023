@@ -26,6 +26,7 @@ axios.get('http://127.0.0.1:3000/lodging/search', {
   console.error(error);
 });
 
+
 axios.get(`http://127.0.0.1:3000/lodging/${id}`, {
   params: {
     month: month
@@ -46,3 +47,25 @@ axios.get(`http://127.0.0.1:3000/lodging/${id}`, {
 });
 
 
+// 예약 내역 조회 API 호출
+axios.get(`http://127.0.0.1:3000/guest/reservation_history/${guestId}?type=all`)
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+// 리뷰 등록 API 호출
+axios.post(`http://127.0.0.1:3000/guest/reviews/${reservationId}`, {
+    memberId: '6572c6b77abb3af236b8148d',
+    lodgingId: '6572c4f2bf3ef10ad248b4f8',
+    review: '되나?',
+    rating: 5
+  })
+  .then(response => {
+    console.log(response.data);
+  })
+  .catch(error => {
+    console.error(error);
+  });

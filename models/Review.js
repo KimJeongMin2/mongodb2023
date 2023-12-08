@@ -4,7 +4,7 @@ const reviewSchema = new mongoose.Schema({
   review: String,
   rating: Number,
   lodgingId: {type: mongoose.Schema.Types.ObjectId, ref: 'Lodging'},
-  memberId: String,
+  memberId: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' },
   reservationId: {type: mongoose.Schema.Types.ObjectId, ref: 'Reservation'}
 });
 
