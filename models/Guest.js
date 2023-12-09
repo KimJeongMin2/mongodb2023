@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const guestSchema = new mongoose.Schema({
-    name: String
+  name: String,
 });
 
-module.exports = mongoose.model('Guest', guestSchema);
+module.exports = mongoose.model("Guest", guestSchema);
