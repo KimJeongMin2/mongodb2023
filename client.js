@@ -121,13 +121,13 @@ const cancelReservation = async (reserveId) => {
 // createGuest("테스트2");
 
 // 숙소 예약(checkIn, checkOut, guests, lodgingId, guestId)
-bookHouse(
-  "2023-12-10",
-  "2023-12-13",
-  1,
-  "6571a436852753fc58624953",
-  "65747f784eb9bff7214ab153"
-);
+// bookHouse(
+//   "2023-12-10",
+//   "2023-12-13",
+//   1,
+//   "6571a436852753fc58624953",
+//   "65747f784eb9bff7214ab153"
+// );
 
 // 예약 취소
 // cancelReservation("657473d90eb9ad78580d468a");
