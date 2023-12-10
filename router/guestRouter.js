@@ -3,9 +3,9 @@ const Reservation = require("../models/Reservation");
 const Review = require("../models/Review");
 const Guest = require("../models/Guest");
 
-const guestRouterRouter = express.Router();
+const guestRouter = express.Router();
 
-guestRouterRouter.post("/new", async (req, res) => {
+guestRouter.post("/new", async (req, res) => {
   try {
     const { name } = req.body;
 
@@ -19,7 +19,7 @@ guestRouterRouter.post("/new", async (req, res) => {
   }
 });
 
-guestRouterRouter.get("/reservation_history/:guestId", async (req, res) => {
+guestRouter.get("/reservation_history/:guestId", async (req, res) => {
   const { guestId } = req.params;
   const findType = req.query.type;
 
@@ -68,7 +68,7 @@ guestRouterRouter.get("/reservation_history/:guestId", async (req, res) => {
   }
 });
 
-guestRouterRouter.post("/reviews/:reservationId", async (req, res) => {
+guestRouter.post("/reviews/:reservationId", async (req, res) => {
   const { reservationId } = req.params;
   const { memberId, lodgingId, review, rating } = req.body;
 
@@ -119,4 +119,4 @@ guestRouterRouter.post("/reviews/:reservationId", async (req, res) => {
   }
 });
 
-module.exports = guestRouterRouter;
+module.exports = guestRouter;

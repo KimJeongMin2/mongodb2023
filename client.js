@@ -23,29 +23,29 @@ const axios = require("axios");
 //   console.error(error);
 // });
 
-axios
-  .get(`http://127.0.0.1:3000/lodging/656b01f69304f859f22e0e1f`, {
-    params: {
-      month: "2023-11",
-    },
-  })
-  .then((response) => {
-    const data = response.data;
+// axios
+//   .get(`http://127.0.0.1:3000/lodging/656b01f69304f859f22e0e1f`, {
+//     params: {
+//       month: "2023-11",
+//     },
+//   })
+//   .then((response) => {
+//     const data = response.data;
 
-    console.log("숙소 정보:\n", data.lodging);
-    console.log(
-      data.reviews.map(
-        (review) => `Review: ${review.review}, Rating: ${review.rating}`
-      )
-    );
-    console.log(data.calendar);
-  })
-  .catch((error) => {
-    console.error(
-      "숙소의 상세 정보를 조회하는 중에 오류가 발생했습니다.",
-      error
-    );
-  });
+//     console.log("숙소 정보:\n", data.lodging);
+//     console.log(
+//       data.reviews.map(
+//         (review) => `Review: ${review.review}, Rating: ${review.rating}`
+//       )
+//     );
+//     console.log(data.calendar);
+//   })
+//   .catch((error) => {
+//     console.error(
+//       "숙소의 상세 정보를 조회하는 중에 오류가 발생했습니다.",
+//       error
+//     );
+//   });
 
 // axios
 //   .get(`http://127.0.0.1:3000/guest/reservation_history/${guestId}?type=all`)
@@ -106,16 +106,16 @@ axios
 //     });
 // };
 
-// const cancelReservation = async (reserveId) => {
-//   axios
-//     .delete("http://127.0.0.1:3000/reservation/delete", {})
-//     .then(function (response) {
-//       console.log(response.data);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// };
+const cancelReservation = async (reserveId) => {
+  axios
+    .delete("http://127.0.0.1:3000/reservation/delete/657583ae1adeb553c86737d9", {})
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
 
 // 게스트 추가
 // createGuest("테스트2");
@@ -125,9 +125,9 @@ axios
 //   "2023-12-10",
 //   "2023-12-13",
 //   1,
-//   "6571a436852753fc58624953",
-//   "65747f784eb9bff7214ab153"
+//   "6575823de85bd08a6e59bb8f",
+//   "6572d5d63a2a5715f4c63e21"
 // );
 
 // 예약 취소
-// cancelReservation("657473d90eb9ad78580d468a");
+cancelReservation("657473d90eb9ad78580d468a");
