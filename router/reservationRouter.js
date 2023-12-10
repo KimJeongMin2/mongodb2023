@@ -68,10 +68,11 @@ router.post("/new", async (req, res) => {
 });
 
 // 예약 취소
-router.delete("/delete", async (req, res) => {
+router.delete("/delete/:reserveId", async (req, res) => {
   try {
-    const { reserveId } = req.body;
-    const reservation = await Reservation.findOneAndDelete(reserveId);
+    const { reserveId } = req.params;
+
+    const reservation = await Reservation.findOneAndDelete({ _id: reserveId });
     if (!reservation)
       return res.status(400).send({ error: "reservation does not exist" });
 
