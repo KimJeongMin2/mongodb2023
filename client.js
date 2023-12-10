@@ -10,10 +10,10 @@ const axios = require("axios");
 
 // axios.get('http://127.0.0.1:3000/lodging/search', {
 //   params: {
-//     checkIn: '2023-12-01',
-//     checkOut: '2023-12-02',
+//     checkIn: '2023-12-10',
+//     checkOut: '2023-12-13',
 //     guests: 2,
-//     lodgingType: '개인실'
+//     lodgingType: "전체 공간"
 //   }
 // })
 // .then(response => {
@@ -23,29 +23,29 @@ const axios = require("axios");
 //   console.error(error);
 // });
 
-axios
-  .get(`http://127.0.0.1:3000/lodging/656b01f69304f859f22e0e1f`, {
-    params: {
-      month: "2023-11",
-    },
-  })
-  .then((response) => {
-    const data = response.data;
+// axios
+//   .get(`http://127.0.0.1:3000/lodging/656b01f69304f859f22e0e1f`, {
+//     params: {
+//       month: "2023-11",
+//     },
+//   })
+//   .then((response) => {
+//     const data = response.data;
 
-    console.log("숙소 정보:\n", data.lodging);
-    console.log(
-      data.reviews.map(
-        (review) => `Review: ${review.review}, Rating: ${review.rating}`
-      )
-    );
-    console.log(data.calendar);
-  })
-  .catch((error) => {
-    console.error(
-      "숙소의 상세 정보를 조회하는 중에 오류가 발생했습니다.",
-      error
-    );
-  });
+//     console.log("숙소 정보:\n", data.lodging);
+//     console.log(
+//       data.reviews.map(
+//         (review) => `Review: ${review.review}, Rating: ${review.rating}`
+//       )
+//     );
+//     console.log(data.calendar);
+//   })
+//   .catch((error) => {
+//     console.error(
+//       "숙소의 상세 정보를 조회하는 중에 오류가 발생했습니다.",
+//       error
+//     );
+//   });
 
 // axios
 //   .get(`http://127.0.0.1:3000/guest/reservation_history/${guestId}?type=all`)
@@ -106,28 +106,28 @@ axios
 //     });
 // };
 
-// const cancelReservation = async (reserveId) => {
-//   axios
-//     .delete("http://127.0.0.1:3000/reservation/delete", {})
-//     .then(function (response) {
-//       console.log(response.data);
-//     })
-//     .catch(function (error) {
-//       console.log(error);
-//     });
-// };
+const cancelReservation = async (reserveId) => {
+  axios
+    .delete("http://127.0.0.1:3000/reservation/delete", {})
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
 
 // 게스트 추가
 // createGuest("테스트2");
 
-// 숙소 예약(checkIn, checkOut, guests, lodgingId, guestId)
+//숙소 예약(checkIn, checkOut, guests, lodgingId, guestId)
 // bookHouse(
 //   "2023-12-10",
 //   "2023-12-13",
 //   1,
-//   "6571a436852753fc58624953",
-//   "65747f784eb9bff7214ab153"
+//   "6572d5d63a2a5715f4c63e21",
+//   "657555ae7de67da82371f18c"
 // );
 
 // 예약 취소
-// cancelReservation("657473d90eb9ad78580d468a");
+cancelReservation("65755660a9515457b3245271");
