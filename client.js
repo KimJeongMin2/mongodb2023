@@ -83,7 +83,7 @@ const axios = require("axios");
 //     });
 // };
 
-// let bookHouse = async (
+// const bookHouse = async (
 //   checkInDate,
 //   checkOutDate,
 //   personnel,
@@ -105,6 +105,29 @@ const axios = require("axios");
 //       console.log(error);
 //     });
 // };
+
+const bookHouse = async (
+  checkInDate,
+  checkOutDate,
+  personnel,
+  lodgingId,
+  guestId
+) => {
+  axios
+    .post("http://127.0.0.1:3000/reservation/new", {
+      checkIn: checkInDate,
+      checkOut: checkOutDate,
+      guests: personnel,
+      lodging: lodgingId,
+      guest: guestId,
+    })
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
 
 const cancelReservation = async (reserveId) => {
   axios
@@ -130,4 +153,4 @@ const cancelReservation = async (reserveId) => {
 // );
 
 // 예약 취소
-cancelReservation("657473d90eb9ad78580d468a");
+cancelReservation("6575b37aaae9ba04e3d9aa71");

@@ -1,10 +1,8 @@
 const express = require("express");
-
+const router = express.Router();
 const Reservation = require("../models/Reservation");
 const Lodging = require("../models/Lodging");
 const Guest = require("../models/Guest");
-
-const router = express.Router();
 
 const getDays = (start, end) => {
   const oneDay = 24 * 60 * 60 * 1000;
@@ -26,19 +24,17 @@ const getWeekendDays = (start, end) => {
 
   return result;
 };
+
 // 예약 등록
 router.post("/new", async (req, res) => {
   try {
-    const newReservation = new Reservation(req.body);
-    await newReservation.save();
-    res.send(newReservation);
     const { checkIn, checkOut, guests, lodgingId, guestId } = req.body;
 
-    const lodging = await Lodging.findOne({_id: lodgingId});
-    const guest = await Guest.findOne({_id: guestId});
+    const lodging = await Lodging.findOne(lodgingId);
+    const guest = await Guest.findOne(guestId);
 
-    console.log("ggg", lodging)
-    console.log("guest", guest)
+    // console.log("lodging: ", lodging);
+    // console.log("guest: ", guest);
 
     if (!lodging || !guest)
       return res.status(400).send({ error: "lodging or guest does not exist" });
@@ -75,8 +71,7 @@ router.post("/new", async (req, res) => {
 router.delete("/delete", async (req, res) => {
   try {
     const { reserveId } = req.body;
-
-    const reservation = await Reservation.findOneAndDelete({_id: reserveId});
+    const reservation = await Reservation.findOneAndDelete(reserveId);
     if (!reservation)
       return res.status(400).send({ error: "reservation does not exist" });
 
