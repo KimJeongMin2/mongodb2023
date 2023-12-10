@@ -75,8 +75,7 @@ router.post("/new", async (req, res) => {
 router.delete("/delete", async (req, res) => {
   try {
     const { reserveId } = req.body;
-
-    const reservation = await Reservation.findOneAndDelete({_id: reserveId});
+    const reservation = await Reservation.findOneAndDelete(reserveId);
     if (!reservation)
       return res.status(400).send({ error: "reservation does not exist" });
 
