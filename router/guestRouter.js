@@ -27,7 +27,7 @@ guestRouter.get("/reservation_history/:guestId", async (req, res) => {
     const allReservations = await Reservation.find();
     // console.log('전체 예약 데이터:', allReservations);
 
-    let filter = { memberId: guestId };
+    let filter = { guest: guestId };
 
     if (findType === "oncoming") {
       console.log("[체크인 예정인 숙소 리스트]");
@@ -81,7 +81,7 @@ guestRouter.post("/reviews/:reservationId", async (req, res) => {
 
     // memberId와 lodgingId 확인
     if (
-      reservation.memberId.toString() !== memberId ||
+      reservation.guest.toString() !== memberId ||
       reservation.lodging.toString() !== lodgingId
     ) {
       return res
@@ -101,7 +101,7 @@ guestRouter.post("/reviews/:reservationId", async (req, res) => {
     const savedReview = await newReview.save();
     console.log(savedReview._id);
     // reservation 테이블의 reviewId 업데이트
-    reservation.reviewId = savedReview._id;
+    reservation.review = savedReview._id;
     await reservation.save();
 
     // 업데이트된 예약 정보 반환
@@ -110,6 +110,8 @@ guestRouter.post("/reviews/:reservationId", async (req, res) => {
         path: "lodging",
         select: ["name", "address", "type", "checkIn", "checkOut"],
       })
+      .populate("guest")
+      .populate("review")
       .exec();
 
     res.status(200).json(updatedReservation);
