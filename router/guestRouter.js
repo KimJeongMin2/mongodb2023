@@ -48,7 +48,7 @@ guestRouter.get("/reservation_history/:guestId", async (req, res) => {
       .exec();
 
     const formattedReservations = reservations.map((reservation, index) => {
-      const reviewStatus = reservation.reviewId ? "O" : "X";
+      const reviewStatus = reservation.review ? "O" : "X";
       const totalPrice = reservation.totalFee;
       return {
         번호: index + 1,
