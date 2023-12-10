@@ -29,9 +29,11 @@ const getWeekendDays = (start, end) => {
 router.post("/new", async (req, res) => {
   try {
     const { checkIn, checkOut, guests, lodgingId, guestId } = req.body;
-
-    const lodging = await Lodging.findOne(lodgingId);
-    const guest = await Guest.findOne(guestId);
+    console.log("lodgingId",lodgingId)
+    const lodging = await Lodging.findOne({_id: lodgingId});
+    console.log("lodging", lodging)
+    const guest = await Guest.findOne({_id: guestId});
+    
 
     // console.log("lodging: ", lodging);
     // console.log("guest: ", guest);

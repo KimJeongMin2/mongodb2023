@@ -55,13 +55,17 @@ router.get('/search', async (req, res) => {
   const weekendDays = getWeekendDays(checkInDate, checkOutDate);
   const weekdayDays = totalDays - weekendDays;
   
+  console.log("check", checkInDate)
+  console.log("out", checkOutDate)
   const reservedLodgingIds = await Reservation.find({
     $or: [
       { checkIn: { $gte: checkInDate, $lt: checkOutDate } },
       { checkOut: { $gt: checkInDate, $lte: checkOutDate } },
       { checkIn: { $lte: checkInDate }, checkOut: { $gte: checkOutDate } }
     ]
-  }).distinct('lodgingId');
+  }).distinct('lodging');
+
+  console.log("rrrrrrr", reservedLodgingIds)
   
   let lodgings = await Lodging.find({
     _id: { $nin: reservedLodgingIds },
@@ -116,7 +120,7 @@ router.get("/:id", async (req, res) => {
     console.log("end", end);
 
     let reservations = await Reservation.find({
-      lodgingId: lodging._id,
+      lodging: lodging._id,
       $or: [
         { checkIn: { $gte: start, $lte: end } },
         { checkOut: { $gte: start, $lte: end } },
@@ -129,7 +133,7 @@ router.get("/:id", async (req, res) => {
       const newReservation = reservation.toObject();
       console.log("Original checkOut value:", newReservation.checkout);
       newReservation.checkIn = new Date(newReservation.checkIn);
-      newReservation.checkOut = new Date(newReservation.checkout);
+      newReservation.checkOut = new Date(newReservation.checkOut);
       return newReservation;
     });
 

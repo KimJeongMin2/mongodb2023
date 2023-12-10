@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const reservationSchema = new mongoose.Schema({
   checkIn: Date,
   checkOut: Date,
-  // guests: Number,
+  guests: Number,
   totalFee: Number,
   lodging: {
     type: mongoose.Schema.Types.ObjectId,
