@@ -131,7 +131,7 @@ const bookHouse = async (
 
 const cancelReservation = async (reserveId) => {
   axios
-    .delete("http://127.0.0.1:3000/reservation/delete", {})
+    .delete(`http://127.0.0.1:3000/reservation/delete/${reserveId}`)
     .then(function (response) {
       console.log(response.data);
     })
