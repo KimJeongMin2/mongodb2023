@@ -106,6 +106,28 @@ const axios = require("axios");
 //     });
 // };
 
+const bookHouse = async (
+  checkInDate,
+  checkOutDate,
+  personnel,
+  lodgingId,
+  guestId
+) => {
+  axios
+    .post("http://127.0.0.1:3000/reservation/new", {
+      checkIn: checkInDate,
+      checkOut: checkOutDate,
+      guests: personnel,
+      lodging: lodgingId,
+      guest: guestId,
+    })
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+};
 
 const cancelReservation = async (reserveId) => {
   axios
