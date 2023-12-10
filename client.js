@@ -83,7 +83,7 @@ const createGuest = async (name) => {
     });
 };
 
-let bookHouse = async (
+const bookHouse = async (
   checkInDate,
   checkOutDate,
   personnel,
